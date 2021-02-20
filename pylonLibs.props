@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+        ToolsVersion="15.0">
+
+	<PropertyGroup Condition="'$(Platform)' == 'x64'">
+		<pylonPlatform>x64</pylonPlatform>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Platform)' != 'x64'">
+		<pylonPlatform>x86</pylonPlatform>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<DocumentationFile>$(MSBuildThisFileDirectory)Development\Assemblies\Basler.Pylon\$(pylonPlatform)\Basler.Pylon.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<!--<ItemGroup Condition="'$(Language)' == 'C++'">
+		<Reference Include="Basler.Pylon">
+		<HintPath>
+			
+		</HintPath>
+		<DocumentationSource sourcefile="\InternalBin\*.dll" />
+		</Reference>
+  	</ItemGroup>  -->
+	<!-- additional ui >
+	<ItemGroup>
+		<PropertyPageSchema Include="$(MSBuildThisFileDirectory)\glew-2.2.0-props.xml" />
+	</ItemGroup>-->
+	
+	<!-- use (static or dynamic) -->
+	<PropertyGroup Condition="'$(RuntimeLibrary)' == 'MultiThreadedDLL' Or '$(RuntimeLibrary)' == 'MultiThreadedDebugDLL'">
+		<GlewLinkage >dynamic</GlewLinkage>
+  	</PropertyGroup>
+	<PropertyGroup Condition="'$(RuntimeLibrary)' != 'MultiThreadedDLL' And '$(RuntimeLibrary)' != 'MultiThreadedDebugDLL'">
+		<GlewLinkage>static</GlewLinkage>
+  	</PropertyGroup>
+
+	<ItemDefinitionGroup>
+		<ClCompile>
+			<PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)Development\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<Enviroment>$(MSBuildThisFileDirectory)Development\;$(Enviroment)</Enviroment>
+		</ClCompile>
+	</ItemDefinitionGroup>
+    <ItemGroup>
+        <ClCompile Include="$(MSBuildThisFileDirectory)Development\include\pylon\PylonIncludes.h" />
+    </ItemGroup>
+	<!-- Linker settings -->
+	<ItemDefinitionGroup>
+		<Link>
+			<AdditionalDependencies>
+			$(MSBuildThisFileDirectory)Development\lib\$(Platform)\PylonUtility_v6_1.lib;
+			$(MSBuildThisFileDirectory)Development\lib\$(Platform)\PylonBase_v6_1.lib;
+			$(MSBuildThisFileDirectory)Development\lib\$(Platform)\PylonC.lib;
+			$(MSBuildThisFileDirectory)Development\lib\$(Platform)\PylonGUI_v6_1.lib;
+			$(MSBuildThisFileDirectory)Development\lib\$(Platform)\GCBase_MD_VC141_v3_1_Basler_pylon.lib;
+			$(MSBuildThisFileDirectory)Development\lib\$(Platform)\GenApi_MD_VC141_v3_1_Basler_pylon.lib;
+			%(AdditionalDependencies)
+			</AdditionalDependencies>
+			<IgnoreSpecificDefaultLibraries>
+			PylonUtility_v6_1.lib;
+			PylonBase_v6_1.lib;
+			PylonC.lib;
+			PylonGUI_v6_1.lib;
+			GCBase_MD_VC141_v3_1_Basler_pylon.lib;
+			GenApi_MD_VC141_v3_1_Basler_pylon.lib;
+			%(IgnoreSpecificDefaultLibraries)
+			</IgnoreSpecificDefaultLibraries>	
+		</Link>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup Condition="'$(Platform)' == 'Win32'">
+		<Link>
+			<AdditionalDependencies>
+			$(MSBuildThisFileDirectory)Development\lib\$(Platform)\PylonC_BCC55.lib;%(AdditionalDependencies)</AdditionalDependencies>
+			<IgnoreSpecificDefaultLibraries>PylonC_BCC55.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>	
+		</Link>
+	</ItemDefinitionGroup>
+
+	<!-- Copy dll redistributable -->
+	<Target Name="PostBuild" AfterTargets="AfterBuild">
+		<Copy SourceFiles="$(MSBuildThisFileDirectory)Runtime\$(Platform)\*.dll" DestinationFolder="$(TargetDir)" SkipUnchangedFiles="true" />
+	</Target>
+	
+</Project>
