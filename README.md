@@ -22,13 +22,13 @@ This package contains a minimal package of the pylon SDK for C and C++, includin
 
 ## Licensing
 
-According to the Basler licensing files, this repository content it's property of  [Basler AG]: https://www.baslerweb.com/en/	"Basler AG"
+According to the Basler licensing files, this repository content it's property of  [Basler AG](https://www.baslerweb.com/en/)
 
 and this is just a facilitation method for the C and C++ developers that uses the Basler pylon SDK, there is no attempt of .
 
 If there is a license breach committed with this repository, I'll proceed to shut it down.
 
-All this content is available in the original source at:  [Software Download | Basler]: https://www.baslerweb.com/en/sales-support/downloads/software-downloads/
+All this content is available in the original source at:  [Software Download | Basler](https://www.baslerweb.com/en/sales-support/downloads/software-downloads/)
 
 
 
