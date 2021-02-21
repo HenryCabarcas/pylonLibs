@@ -1,6 +1,8 @@
 # Basler Pylon 6.1.1 library
 
-![Basler Logo](https://docs.baslerweb.com/images/screen-pylon6-logo.png)
+<img src="https://docs.baslerweb.com/images/screen-pylon6-logo.png" alt="Basler Logo" style="zoom:50%;" />
+
+[![NuGet Publish](https://github.com/nerdtronik/pylonLibs/actions/workflows/build-n-publish.yml/badge.svg)](https://github.com/nerdtronik/pylonLibs/actions/workflows/build-n-publish.yml)
 
 This is a compilation of the necessaries files to work with the Basler pylon SDK with only installing the required drivers and the include files. 
 

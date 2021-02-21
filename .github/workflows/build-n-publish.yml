@@ -1,0 +1,39 @@
+name: NuGet Publish
+on:
+  push:
+    branches:
+      - main # Default release branch
+jobs:
+  publish:
+    name: build, pack & publish
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      # - name: Setup dotnet
+      #   uses: actions/setup-dotnet@v1
+      #   with:
+      #     dotnet-version: 3.1.200
+      - name: Setup Nuget.exe
+        uses: nuget/setup-nuget@v1
+        with:
+          nuget-api-key: ${{ secrets.NUGET_API_KEY }}
+          nuget-version: '5.x'
+          
+      #- name: Cache
+      #  uses: actions/cache@v2.1.4
+       # with:  
+        #  path: ./*.nupkg
+         # key: ${{secrets.NUGET_API_KEY}}
+          
+      - name: Nuget Pack
+        run: nuget pack ./pylonLibs.nuspec
+      
+      - name: Add Sources
+        run: nuget sources add -Name "NuGet" -Source ${{secrets.NUGET_ORG_SOURCE}}; nuget sources add -Name "Github" -Source ${{secrets.NUGET_GITHUB_SOURCE}} -username nerdtronik -password ${{secrets.G_NUGET_PASSWORD}}
+      
+      - name: Nuget.org Push
+        run: nuget push *.nupkg -Source "NuGet" -ApiKey ${{secrets.NUGET_API_KEY}} -Timeout ${{secrets.NUGET_TIMEOUT}} -SkipDuplicate
+      
+      - name: Github Push
+        run: nuget push *.nupkg -Source "Github" -ApiKey ${{secrets.G_NUGET_API_KEY}} -Timeout ${{secrets.NUGET_TIMEOUT}} -SkipDuplicate
