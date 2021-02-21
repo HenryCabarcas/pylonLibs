@@ -30,7 +30,7 @@ jobs:
         run: nuget pack ./pylonLibs.nuspec
       
       - name: Adding Sources
-        run: nuget sources add -Name "NuGet" -Source ${{secrets.NUGET_ORG_SOURCE}};\n nuget sources add -Name "Github" -Source ${{secrets.NUGET_GITHUB_SOURCE}} -username nerdtronik -password ${{secrets.G_NUGET_PASSWORD}}
+        run: nuget sources add -Name "NuGet" -Source ${{secrets.NUGET_ORG_SOURCE}}; nuget sources add -Name "Github" -Source ${{secrets.NUGET_GITHUB_SOURCE}} -username nerdtronik -password ${{secrets.G_NUGET_PASSWORD}}
       
       - name: Nuget.org Push
         run: nuget push *.nupkg -Source "NuGet" -ApiKey ${{secrets.NUGET_API_KEY}} -Timeout ${{secrets.NUGET_TIMEOUT}} -SkipDuplicate
