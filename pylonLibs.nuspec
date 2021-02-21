@@ -2,13 +2,14 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>pylonLibs</id>
-        <version>1.0.2</version>
+        <version>1.0.3</version>
         <title>Pylon Libraries</title>
          <authors>NerdTronik, Basler</authors>
         <owners>https://www.baslerweb.com</owners>
         <description>This is a package of the pylon Cameras SDK, attempted to be used in C and C++</description>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <license type="file">build\native\Licenses\License.txt</license>
+        <icon url=""></icon>
         <iconUrl>https://docs.baslerweb.com/images/screen-pylon6-logo.png</iconUrl>
         <repository type="git" url="https://github.com/nerdtronik/pylonLibs" />
         <tags>native, Native, basler, pylon</tags>

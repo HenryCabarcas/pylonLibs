@@ -21,9 +21,7 @@
 			<Enviroment>$(MSBuildThisFileDirectory)Development\;$(Enviroment)</Enviroment>
 		</ClCompile>
 	</ItemDefinitionGroup>
-    <ItemGroup>
-        <ClCompile Include="$(MSBuildThisFileDirectory)Development\include\pylon\PylonIncludes.h" />
-    </ItemGroup>
+   
 	<!-- Linker settings -->
 	<ItemDefinitionGroup>
 		<Link>
