@@ -1,0 +1,39 @@
+name: publish to nuget
+on:
+  push:
+    branches:
+      - main # Default release branch
+jobs:
+  publish:
+    name: build, pack & publish
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      # - name: Setup dotnet
+      #   uses: actions/setup-dotnet@v1
+      #   with:
+      #     dotnet-version: 3.1.200
+
+      # Publish
+      - name: publish on version change
+        id: publish_nuget
+        uses: rohith/publish-nuget@v2
+        with:
+          # Filepath of the project to be packaged, relative to root of repository
+          PROJECT_FILE_PATH: ./
+          PACKAGE_NAME: pylonLibs
+          VERSION_FILE_PATH: pylonLibs.nuspec
+          VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
+          
+          # Useful with external providers like Nerdbank.GitVersioning, ignores VERSION_FILE_PATH & VERSION_REGEX
+          # VERSION_STATIC: 1.0.0
+          TAG_COMMIT: true
+          TAG_FORMAT: v*
+          NUGET_KEY: ${{secrets.GITHUB_NUGET_API_KEY}}
+          NUGET_SOURCE: https://nuget.pkg.github.com/nerdtronik/index.json
+          NUGET_USERNAME: nerdtronik
+          NUGET_PASSWORD: ${{secrets.GITHUB_NUGET_PASSWORD}}
+
+          # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
+          # INCLUDE_SYMBOLS: false
