@@ -27,7 +27,7 @@ jobs:
           key: ${{secrets.NUGET_API_KEY}}
           
       - name: Nuget Pack
-        run: nuget pack *.nuspec
+        run: nuget pack ./pylonLibs.nuspec
         
       - name: Nuget.org Push
         run: nuget push *.nupkg -Source ${{secrets.NUGET_ORG_SOURCE}} -ApiKey ${{secrets.NUGET_API_KEY}} -Timeout ${{secrets.NUGET_TIMEOUT}}
