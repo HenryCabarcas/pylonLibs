@@ -33,4 +33,4 @@ jobs:
         run: nuget push *.nupkg -Source ${{secrets.NUGET_ORG_SOURCE}} -ApiKey ${{secrets.NUGET_API_KEY}} -Timeout ${{secrets.NUGET_TIMEOUT}}
       
       - name: Github Push
-        run: nuget push *.nupkg -Source ${{secrets.NUGET_GITHUB_SOURCE}} -ApiKey ${{secrets.G_NUGET_API_KEY}} -Timeout ${{secrets.NUGET_TIMEOUT}}
+        run: nuget push *.nupkg -Source ${{secrets.NUGET_GITHUB_SOURCE}} -ApiKey ${{secrets.G_NUGET_API_KEY}} -Username nerdtronik -Password ${{secrets.G_NUGET_PASSWORD}} -Timeout ${{secrets.NUGET_TIMEOUT}}
