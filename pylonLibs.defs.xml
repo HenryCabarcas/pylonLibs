@@ -1,20 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ProjectSchemaDefinitions xmlns="clr-namespace:Microsoft.Build.Framework.XamlTypes;assembly=Microsoft.Build.Framework">
-    <EnumProperty Name="PYLON_DEV_DIR">
-        <EnumValue Name="$(MSBuildThisFileDirectory)Development\" />
+	<EnumProperty Name="PYLON_DEV_DIR">
+		<EnumValue Name="$(MSBuildThisFileDirectory)Development\" />
 	</EnumProperty>
-	<!--Rule Name="ReferencedPackages-glew" PageTemplate="tool" DisplayName="Referenced Packages" SwitchPrefix="/" Order="1">
-		<Rule.Categories>
-			<Category Name="glew" DisplayName="glew" />
-		</Rule.Categories>
-		<Rule.DataSource>
-			<DataSource Persistence="ProjectFile" ItemType="" />
-		</Rule.DataSource>
-		
-		<EnumProperty Name="GlfwConfiguration" DisplayName="Configuration" Description="Which configuration of the library to use" Category="glfw">
-			<EnumValue Name="" DisplayName="default" />
-			<EnumValue Name="Release" DisplayName="Release" />
-			<EnumValue Name="Debug" DisplayName="Debug" />
-		</EnumProperty>
-	</Rule-->
 </ProjectSchemaDefinitions>

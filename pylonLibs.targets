@@ -6,7 +6,9 @@
   <ItemGroup>
 		<PropertyPageSchema Include="$(MSBuildThisFileDirectory)\pylonLibs.defs.xml" />
 	</ItemGroup>
-
+  <PropertyGroup Condition="'$(PYLON_DEV_DIR)' == ''">
+		<PYLON_DEV_DIR>$(MSBuildThisFileDirectory)Development\</PYLON_DEV_DIR>
+	</PropertyGroup>
   <!-- Platform name definition -->
 	<PropertyGroup Condition="'$(Platform)' == 'x64'">
 		<pylonPlatform>x64</pylonPlatform>
