@@ -2,6 +2,12 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
         ToolsVersion="15.0">
 
+  <!-- Variable PYLON_DEV_DIR definition -->
+  <ItemGroup>
+		<PropertyPageSchema Include="$(MSBuildThisFileDirectory)\pylonLibs.defs.xml" />
+	</ItemGroup>
+
+  <!-- Platform name definition -->
 	<PropertyGroup Condition="'$(Platform)' == 'x64'">
 		<pylonPlatform>x64</pylonPlatform>
 	</PropertyGroup>
@@ -10,162 +16,141 @@
 		<pylonPlatform>Win32</pylonPlatform>
 	</PropertyGroup>
 
+  <!-- Documentation include (Not sure if it works) -->
 	<PropertyGroup>
 		<DocumentationFile>$(MSBuildThisFileDirectory)Development\Assemblies\Basler.Pylon\$(pylonPlatform)\Basler.Pylon.xml</DocumentationFile>
 	</PropertyGroup>
-
-	<ItemDefinitionGroup>
-		<ClCompile>
-			<PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)Development\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-			<Enviroment>$(MSBuildThisFileDirectory)Development\;$(Enviroment)</Enviroment>
-		</ClCompile>
-	</ItemDefinitionGroup>
    
-	<!-- Linker settings -->
+	<!-- Linker and Include settings -->
 	<ItemDefinitionGroup>
+    <ClCompile>
+			<!--PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions-->
+			<AdditionalIncludeDirectories>
+        $(MSBuildThisFileDirectory)Development\include\;%(AdditionalIncludeDirectories)
+      </AdditionalIncludeDirectories>
+		</ClCompile>
 		<Link>
-			<AdditionalDependencies>
-			$(MSBuildThisFileDirectory)Development\lib\$(pylonPlatform)\PylonUtility_v6_1.lib;
-			$(MSBuildThisFileDirectory)Development\lib\$(pylonPlatform)\PylonBase_v6_1.lib;
-			$(MSBuildThisFileDirectory)Development\lib\$(pylonPlatform)\PylonC.lib;
-			$(MSBuildThisFileDirectory)Development\lib\$(pylonPlatform)\PylonGUI_v6_1.lib;
-			$(MSBuildThisFileDirectory)Development\lib\$(pylonPlatform)\GCBase_MD_VC141_v3_1_Basler_pylon.lib;
-			$(MSBuildThisFileDirectory)Development\lib\$(pylonPlatform)\GenApi_MD_VC141_v3_1_Basler_pylon.lib;
-			%(AdditionalDependencies)
-			</AdditionalDependencies>
-			<IgnoreSpecificDefaultLibraries>
-			PylonUtility_v6_1.lib;
-			PylonBase_v6_1.lib;
-			PylonC.lib;
-			PylonGUI_v6_1.lib;
-			GCBase_MD_VC141_v3_1_Basler_pylon.lib;
-			GenApi_MD_VC141_v3_1_Basler_pylon.lib;
-			%(IgnoreSpecificDefaultLibraries)
-			</IgnoreSpecificDefaultLibraries>	
+      <AdditionalLibraryDirectories>
+        $(MSBuildThisFileDirectory)Development\lib\$(pylonPlatform)\;
+        %(AdditionalLibraryDirectories)
+      </AdditionalLibraryDirectories>
 		</Link>
 	</ItemDefinitionGroup>
-<!--	<ItemDefinitionGroup Condition="'$(pylonPlatform)' == 'Win32'">
-		<Link>
-			<AdditionalDependencies>
-			$(MSBuildThisFileDirectory)Development\lib\$(pylonPlatform)\PylonC_BCC55.lib;%(AdditionalDependencies)</AdditionalDependencies>
-			<IgnoreSpecificDefaultLibraries>PylonC_BCC55.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>	
-		</Link>
-	</ItemDefinitionGroup>-->
 
+  <!-- DLL Copying to output dir -->
 	<ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\PylonUtility_v6_1.dll">
+      <Link>PylonUtility_v6_1.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>False</Visible>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\PylonC_v6_1.dll">
+      <Link>PylonC_v6_1.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>False</Visible>
+    </Content>
+	  <Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\PylonBase_v6_1.dll">
+      <Link>PylonBase_v6_1.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>False</Visible>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\PylonCamEmu_v6_1_TL.dll">
+      <Link>PylonCamEmu_v6_1_TL.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>False</Visible>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\GCBase_MD_VC141_v3_1_Basler_pylon.dll">
+      <Link>GCBase_MD_VC141_v3_1_Basler_pylon.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>False</Visible>
+    </Content>
+	  <Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\GenApi_MD_VC141_v3_1_Basler_pylon.dll">
+      <Link>GenApi_MD_VC141_v3_1_Basler_pylon.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>False</Visible>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\NodeMapData_MD_VC141_v3_1_Basler_pylon.dll">
+      <Link>NodeMapData_MD_VC141_v3_1_Basler_pylon.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>False</Visible>
+    </Content>
+	  <Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\MathParser_MD_VC141_v3_1_Basler_pylon.dll">
+      <Link>MathParser_MD_VC141_v3_1_Basler_pylon.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>False</Visible>
+    </Content>
+  	<Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\Log_MD_VC141_v3_1_Basler_pylon.dll">
+      <Link>Log_MD_VC141_v3_1_Basler_pylon.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>False</Visible>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\XmlParser_MD_VC141_v3_1_Basler_pylon.dll">
+      <Link>XmlParser_MD_VC141_v3_1_Basler_pylon.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>False</Visible>
+      </Content>
     <Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\CLAllSerial_MD_VC141_v3_1_Basler_pylon.dll">
       <Link>CLAllSerial_MD_VC141_v3_1_Basler_pylon.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Visible>False</Visible>
     </Content>
-	<Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\CLProtocol_MD_VC141_v3_1_Basler_pylon.dll">
+	  <Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\CLProtocol_MD_VC141_v3_1_Basler_pylon.dll">
       <Link>CLProtocol_MD_VC141_v3_1_Basler_pylon.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Visible>False</Visible>
     </Content>
-	<Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\CLSerCOM.dll">
+	  <Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\CLSerCOM.dll">
       <Link>CLSerCOM.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Visible>False</Visible>
     </Content>
-	<Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\FirmwareUpdate_MD_VC141_v3_1_Basler_pylon.dll">
+	  <Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\FirmwareUpdate_MD_VC141_v3_1_Basler_pylon.dll">
       <Link>FirmwareUpdate_MD_VC141_v3_1_Basler_pylon.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Visible>False</Visible>
     </Content>
-	<Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\GCBase_MD_VC141_v3_1_Basler_pylon.dll">
-      <Link>GCBase_MD_VC141_v3_1_Basler_pylon.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Visible>False</Visible>
-    </Content>
-	<Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\GenApi_MD_VC141_v3_1_Basler_pylon.dll">
-      <Link>GenApi_MD_VC141_v3_1_Basler_pylon.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Visible>False</Visible>
-    </Content>
-	<Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\PylonC_v6_1.dll">
-      <Link>PylonC_v6_1.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Visible>False</Visible>
-    </Content>
-	<Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\PylonBase_v6_1.dll">
-      <Link>PylonBase_v6_1.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Visible>False</Visible>
-    </Content>
-	<Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\NodeMapData_MD_VC141_v3_1_Basler_pylon.dll">
-      <Link>NodeMapData_MD_VC141_v3_1_Basler_pylon.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Visible>False</Visible>
-    </Content>
-	<Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\MathParser_MD_VC141_v3_1_Basler_pylon.dll">
-      <Link>MathParser_MD_VC141_v3_1_Basler_pylon.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Visible>False</Visible>
-    </Content>
-	<Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\Log_MD_VC141_v3_1_Basler_pylon.dll">
-      <Link>Log_MD_VC141_v3_1_Basler_pylon.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Visible>False</Visible>
-    </Content>
-	<Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\log4cpp_MD_VC141_v3_1_Basler_pylon.dll">
+  	<Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\log4cpp_MD_VC141_v3_1_Basler_pylon.dll">
       <Link>log4cpp_MD_VC141_v3_1_Basler_pylon.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Visible>False</Visible>
     </Content>
-	<Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\gxapi_v12.dll">
+  	<Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\gxapi_v12.dll">
       <Link>gxapi_v12.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Visible>False</Visible>
     </Content>
-	<Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\PylonCamEmu_v6_1_TL.dll">
-      <Link>PylonCamEmu_v6_1_TL.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Visible>False</Visible>
-    </Content>
-	<Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\PylonCLSer_v6_1_TL.dll">
+  	<Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\PylonCLSer_v6_1_TL.dll">
       <Link>PylonCLSer_v6_1_TL.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Visible>False</Visible>
     </Content>
-	<Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\PylonGigE_v6_1_TL.dll">
+  	<Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\PylonGigE_v6_1_TL.dll">
       <Link>PylonGigE_v6_1_TL.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Visible>False</Visible>
     </Content>
-	<Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\PylonGtc_v6_1_TL.dll">
+  	<Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\PylonGtc_v6_1_TL.dll">
       <Link>PylonGtc_v6_1_TL.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Visible>False</Visible>
     </Content>
-	<Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\PylonGUI_v6_1.dll">
+  	<Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\PylonGUI_v6_1.dll">
       <Link>PylonGUI_v6_1.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Visible>False</Visible>
-	</Content>
+  	</Content>
 	  <Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\PylonUsb_v6_1_TL.dll">
       <Link>PylonUsb_v6_1_TL.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Visible>False</Visible>
     </Content>
-	<Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\PylonUtility_v6_1.dll">
-      <Link>PylonUtility_v6_1.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Visible>False</Visible>
-    </Content>
-	<Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\uxapi_v12.dll">
+  	<Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\uxapi_v12.dll">
       <Link>uxapi_v12.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Visible>False</Visible>
     </Content>
-	<Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\uxtopapi_v6_1.dll">
+  	<Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\uxtopapi_v6_1.dll">
       <Link>uxtopapi_v6_1.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Visible>False</Visible>
-    </Content>
-	<Content Include="$(MSBuildThisFileDirectory)Runtime\$(pylonPlatform)\XmlParser_MD_VC141_v3_1_Basler_pylon.dll">
-      <Link>XmlParser_MD_VC141_v3_1_Basler_pylon.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Visible>False</Visible>
     </Content>
