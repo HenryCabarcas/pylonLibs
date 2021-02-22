@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>pylonLibs</id>
-        <version>1.0.4</version>
+        <version>1.0.5</version>
         <title>Pylon Libraries</title>
          <authors>NerdTronik, Basler</authors>
         <owners>https://www.baslerweb.com</owners>
@@ -30,5 +30,6 @@
         <file src="README.md"                                       target="build\native"      />
         <file src="Redist\Drivers\*.*"                              target="drivers"      />
         <file src="pylonLibs.targets"                               target="build\native" />
+        <file src="pylonLibs.defs.xml"                               target="build\native" />
     </files>
 </package>
