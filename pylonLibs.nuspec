@@ -30,6 +30,6 @@
         <file src="README.md"                                       target="build\native"      />
         <file src="Redist\Drivers\*.*"                              target="drivers"      />
         <file src="pylonLibs.targets"                               target="build\native" />
-        <file src="pylonLibs.defs.xml"                               target="build\native" />
+        <file src="pylonLibs.defs.xml"                              target="build\native" />
     </files>
 </package>
